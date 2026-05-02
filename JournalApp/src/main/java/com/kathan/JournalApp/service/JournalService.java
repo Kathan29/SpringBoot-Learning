@@ -8,14 +8,13 @@ import org.springframework.stereotype.Service;
 import com.kathan.JournalApp.entities.JournalEntry;
 import com.kathan.JournalApp.repository.JournalRepo;
 
+import lombok.RequiredArgsConstructor;
+
 @Service
+@RequiredArgsConstructor
 public class JournalService {
 	
-	private JournalRepo repo;
-	public JournalService(JournalRepo repo) {
-		this.repo = repo;
-	}
-	
+	private final JournalRepo repo;
 	
 	public JournalEntry saveEntry(JournalEntry j) {
 		return repo.save(j);

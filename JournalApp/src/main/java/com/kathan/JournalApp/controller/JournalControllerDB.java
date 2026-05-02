@@ -5,7 +5,6 @@ import java.util.List;
 import java.util.Optional;
 
 import org.springframework.http.HttpStatus;
-import org.springframework.http.HttpStatusCode;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -19,13 +18,14 @@ import org.springframework.web.bind.annotation.RestController;
 import com.kathan.JournalApp.entities.JournalEntry;
 import com.kathan.JournalApp.service.JournalService;
 
+import lombok.RequiredArgsConstructor;
+
 @RestController
 @RequestMapping("/journal")
+@RequiredArgsConstructor
 public class JournalControllerDB {
-	private JournalService service;
-	public JournalControllerDB(JournalService service) {
-		this.service = service;
-	}
+	private final JournalService service;
+
 	
 	@PostMapping
 	public ResponseEntity<JournalEntry> create(@RequestBody JournalEntry j) {
@@ -43,7 +43,7 @@ public class JournalControllerDB {
 	
 	@GetMapping
 	public ResponseEntity<List<JournalEntry>> getAll(){
-		//return service.getAll();
+		//return service.getAll();	
 		List<JournalEntry> allEntry = service.getAll();
 		if(allEntry==null || allEntry.isEmpty()) {
 			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
