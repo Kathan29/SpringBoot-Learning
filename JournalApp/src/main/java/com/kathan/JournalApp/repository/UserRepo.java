@@ -6,4 +6,5 @@ import com.kathan.JournalApp.entities.Users;
 
 public interface UserRepo extends MongoRepository<Users, String>{
 	public Users findByUsername(String username);
+	public void  deleteByUsername(String username);
 }

@@ -10,12 +10,14 @@ import org.springframework.data.mongodb.core.mapping.Document;
 
 import com.mongodb.lang.NonNull;
 
+import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 @Document(collection = "user_entries")
 @Data
 @NoArgsConstructor
+@AllArgsConstructor
 public class Users {
 	
 	@Id
@@ -31,6 +33,6 @@ public class Users {
 	@DBRef
 	private List<JournalEntry> journal_entries = new ArrayList<>();
 	
-	private List<String> roles;
+	private List<String> roles = new ArrayList<>();
 	
 }
