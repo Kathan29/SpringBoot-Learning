@@ -6,12 +6,15 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.kathan.JournalApp.entities.Users;
+import com.kathan.JournalApp.externalApi.WeatherResponse;
+import com.kathan.JournalApp.externalApi.WeatherService;
 import com.kathan.JournalApp.service.UserService;
 
 import lombok.RequiredArgsConstructor;
@@ -22,6 +25,7 @@ import lombok.RequiredArgsConstructor;
 public class UserControllerDB {
 	
 	private final UserService service;
+	private final WeatherService weatherService;
 	
 	@PutMapping
 	public ResponseEntity<Users> updateById(@RequestBody Users newEntry) {
@@ -44,6 +48,15 @@ public class UserControllerDB {
 		String username = auth.getName();
 		service.deleteByUsername(username);
 		return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+	}
+	
+	@GetMapping
+	public ResponseEntity<?> greetings(){
+		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+		String city = "Ahmedabad";
+		WeatherResponse response = weatherService.getWeather(city);
+		return new ResponseEntity<>("Hi "+auth.getName()+" ,today's temperature in "+response.getLocation().getCity() +
+				" is : "+response.getCurrent().getTemperature()+ " but it feels like "+response.getCurrent().getFeelsLike(),HttpStatus.OK);
 	}
 	
 	
