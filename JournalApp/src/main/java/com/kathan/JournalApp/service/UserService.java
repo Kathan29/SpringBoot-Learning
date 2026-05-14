@@ -12,9 +12,11 @@ import com.kathan.JournalApp.entities.Users;
 import com.kathan.JournalApp.repository.UserRepo;
 
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 
 @Service
 @RequiredArgsConstructor
+@Slf4j
 public class UserService {
 	
 	private final UserRepo repo;
@@ -57,6 +59,14 @@ public class UserService {
 		user.setPassword(encoder.encode(user.getPassword()));
 		user.setRoles(Arrays.asList("USER","ADMIN"));
 		return repo.save(user);
+	}
+	
+	public void getUsernamePassword() {
+		Users user = repo.getUsernamePassword("kathan@gmail.com");
+		log.info(user.getUsername());
+		log.info(user.getPassword());
+		//In query we wrote such that we recieve username password only, hence id should be null here.
+		log.info(user.getId());
 	}
 
 }

@@ -11,6 +11,7 @@ import org.springframework.data.mongodb.core.mapping.Document;
 import com.mongodb.lang.NonNull;
 
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -18,6 +19,7 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
+@Builder
 public class Users {
 	
 	@Id
@@ -34,5 +36,8 @@ public class Users {
 	private List<JournalEntry> journal_entries = new ArrayList<>();
 	
 	private List<String> roles = new ArrayList<>();
+	
+	private String email;
+	private String sentimentAnalysis;
 	
 }

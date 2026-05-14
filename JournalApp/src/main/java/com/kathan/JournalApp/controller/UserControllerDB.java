@@ -54,10 +54,15 @@ public class UserControllerDB {
 	public ResponseEntity<?> greetings(){
 		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
 		String city = "Ahmedabad";
-		WeatherResponse response = weatherService.getWeather(city);
+		WeatherResponse response = weatherService.getWeatherUsingRestTemplate(city);
+		//WeatherResponse response = weatherService.getWeatherUsingWebService(city);
 		return new ResponseEntity<>("Hi "+auth.getName()+" ,today's temperature in "+response.getLocation().getCity() +
 				" is : "+response.getCurrent().getTemperature()+ " but it feels like "+response.getCurrent().getFeelsLike(),HttpStatus.OK);
 	}
 	
+	@GetMapping("/query-check")
+	public void queryAnnotationCheck() {
+		service.getUsernamePassword();
+	}
 	
 }
