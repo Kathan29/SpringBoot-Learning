@@ -54,8 +54,13 @@ public class UserControllerDB {
 	public ResponseEntity<?> greetings(){
 		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
 		String city = "Ahmedabad";
-		WeatherResponse response = weatherService.getWeatherUsingRestTemplate(city);
+//One way of sending request is through restTemplate (old way )
+//Second way is through Web Service which is modern way.
+//Third way here we use Redis and @Cachable way (Using RestTemplate only)			
+		
+		//WeatherResponse response = weatherService.getWeatherUsingRestTemplate(city);
 		//WeatherResponse response = weatherService.getWeatherUsingWebService(city);
+		WeatherResponse response = weatherService.getWeatherUsingRedisCachable(city);
 		return new ResponseEntity<>("Hi "+auth.getName()+" ,today's temperature in "+response.getLocation().getCity() +
 				" is : "+response.getCurrent().getTemperature()+ " but it feels like "+response.getCurrent().getFeelsLike(),HttpStatus.OK);
 	}

@@ -1,19 +1,28 @@
 package com.kathan.JournalApp.externalApi;
 
+import java.io.Serializable;
+
 import com.fasterxml.jackson.annotation.JsonProperty;
 
-import lombok.Getter;
-import lombok.Setter;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
-@Getter
-@Setter
-public class WeatherResponse {
+
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
+public class WeatherResponse implements Serializable{
 	
+	private static final long serialVersionUID = 1L;
 	private Current current;
 	private Location location;
 	
-	@Getter @Setter
-	public class Current{
+	@Data
+	@NoArgsConstructor
+	@AllArgsConstructor
+	public static class Current implements Serializable{
+		private static final long serialVersionUID = 1L;
 		@JsonProperty("temp_c")
 	    private double temperature;
 		
@@ -21,8 +30,11 @@ public class WeatherResponse {
 	    private double feelsLike;
 	}
 
-	@Getter @Setter
-	public class Location{
+	@Data
+	@NoArgsConstructor
+	@AllArgsConstructor
+	public static class Location implements Serializable{
+		private static final long serialVersionUID = 1L;
 		
 		@JsonProperty("name")
 	    private String city;
